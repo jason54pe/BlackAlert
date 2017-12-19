@@ -1,0 +1,34 @@
+---
+name: BlackAlerts
+main: BlackAlerts\BlackAlerts
+version: 1.0.0
+api:
+- 3.0.0-ALPHA7
+- 3.0.0-ALPHA8
+- 3.0.0-ALPHA9
+- 3.0.0-ALPHA10
+load: STARTUP
+author: BlackTeam
+description: Personnaliser les alertes (joindre / laisser des messages, etc...)
+website: http://www.evolsoft.tk
+commands:
+  BlackAlerts:
+    aliases:
+    - calerts
+    description: Commandes BlackAlerts.
+    permission: BlackAlerts
+permissions:
+  BlackAlerts:
+    default: op
+    description: Permission BlackAlerts.
+    children:
+      BlackAlerts.help:
+        default: op
+        description: BlackAlerts commande autorisation de l'aide.
+      BlackAlerts.info:
+        default: op
+        description: BlackAlerts commande info permission.
+      BlackAlerts.reload:
+        default: op
+        description: BlackAlerts commande Reload permission.
+...
