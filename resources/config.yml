@@ -1,0 +1,89 @@
+---
+datetime-format: "H:i:s"
+Motd:
+  update-timeout: 1
+  custom: true
+  message: "&4Black&cPast &aUltimate &eV0.1!"
+OutdatedClient:
+  custom: false
+  message: ""
+OutdatedServer:
+  custom: false
+  message: ""
+WhitelistedServer:
+  custom: true
+  message: ""
+FullServer:
+  custom: true
+  message: ""
+FirstJoin:
+  enable: true
+  message: ""
+Join:
+  hide: false
+  custom: true
+  message: ""
+Quit:
+  hide: true
+  custom: false
+  message: ""
+WorldChange:
+  enable: true
+  message: ""
+Death:
+  hide: false
+  custom: true
+  message: ""
+  death-contact-message:
+    hide: false
+    custom: true
+    message: ""
+  kill-message:
+    hide: false
+    custom: true
+    message: ""
+  death-projectile-message:
+    hide: false
+    custom: true
+    message: ""
+  death-suffocation-message:
+    hide: false
+    custom: true
+    message: ""
+  death-fall-message:
+    hide: false
+    custom: true
+    message: ""
+  death-fire-message:
+    hide: false
+    custom: true
+    message: ""
+  death-on-fire-message:
+    hide: false
+    custom: true
+    message: ""
+  death-lava-message:
+    hide: false
+    custom: true
+    message: ""
+  death-drowning-message:
+    hide: false
+    custom: true
+    message: ""
+  death-explosion-message:
+    hide: false
+    custom: true
+    message: ""
+  death-void-message:
+    hide: false
+    custom: true
+    message: ""
+  death-suicide-message:
+    hide: false
+    custom: true
+    message: ""
+  death-magic-message:
+    hide: false
+    custom: true
+    message: ""
+...
