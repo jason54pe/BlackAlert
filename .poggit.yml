@@ -1,5 +1,7 @@
 --- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/jason54pe/BlackAlert-BT
 branches:
 - master
-projects: []
+projects:
+  BlackAlert-BT:
+    path: ""
 ...
