@@ -10,7 +10,6 @@ api:
 load: STARTUP
 author: BlackTeam
 description: Personnaliser les alertes (joindre / laisser des messages, etc...)
-website: http://www.evolsoft.tk
 commands:
   BlackAlerts:
     aliases:
