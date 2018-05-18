@@ -1,18 +1,6 @@
 <?php
-
-/*
- * CustomAlerts (v1.6) by EvolSoft
- * Developer: EvolSoft (Flavius12)
- * Website: http://www.evolsoft.tk
- * Date: 14/07/2015 01:34 PM (UTC)
- * Copyright & License: (C) 2014-2015 EvolSoft
- * Licensed under MIT (https://github.com/EvolSoft/CustomAlerts/blob/master/LICENSE)
- */
-
 namespace BlackAlerts;
 
-use pocketmine\command\CommandExecutor;
-use pocketmine\command\CommandSender;
 use pocketmine\entity\Living;
 use pocketmine\event\entity\EntityDamageByBlockEvent;
 use pocketmine\event\entity\EntityDamageEvent;
@@ -24,60 +12,29 @@ use pocketmine\utils\Config;
 use pocketmine\utils\TextFormat;
 
 class BlackAlerts extends PluginBase{
+const PRODUCER = "BlackTeam";
 
-	//About Plugin Const
-
-	/** @var string PRODUCER Plugin producer */
-	const PRODUCER = "BlackTeam";
-
-	/** @var string VERSION Plugin version */
-	const VERSION = "1.0.0";
-
-	/** @var string MAIN_WEBSITE Plugin producer website */
-	const MAIN_WEBSITE = "http://blackpast-mc.fr";
-
-	//Other Const
-
-	/** @var string PREFIX Plugin prefix */
+	const VERSION = "1.1";
 	const PREFIX = "&b[&aBlack&cAlerts&b] ";
 
-	//Messages
-
-	/** @var string $message_motd The current motd message */
-	private $message_motd;
-
-	/** @var string $message_outdated_client The current outdated client message */
 	private $message_outdated_client;
 
-	/** @var string $message_outdated_server The current outdated server message */
 	private $message_outdated_server;
 
-	/** @var string $message_whitelist The current whitelist message */
 	private $message_whitelist;
 
-	/** @var string $message_fullserver The current full server message */
 	private $message_fullserver;
 
-	/** @var string $message_join The current join message */
 	private $message_join;
 
-	/** @var string $message_quit The current quit message */
 	private $message_quit;
 
-	/** @var string $message_world_change The current world change message */
 	private $message_world_change;
 
-	/** @var string $message_death The current death message */
 	private $message_death;
 
-	/** @var CustomAlerts $instance Plugin instance */
 	private static $instance = null;
-
-	/**
-	 * Get CustomAlerts API
-	 *
-	 * @return CustomAlerts CustomAlerts API
-	 */
+	
 	public static function getAPI(){
 		return self::$instance;
 	}
@@ -88,14 +45,6 @@ class BlackAlerts extends PluginBase{
 		}
 	}
 
-	/**
-	 * Translate Minecraft colors
-	 *
-	 * @param string $symbol Color symbol
-	 * @param string $message The message to be translated
-	 *
-	 * @return string The translated message
-	 */
 	public function translateColors($symbol, $message){
 
 		$message = str_replace($symbol . "0", TextFormat::BLACK, $message);
@@ -130,72 +79,34 @@ class BlackAlerts extends PluginBase{
 		@mkdir($this->getDataFolder() . "data/");
 		$this->saveDefaultConfig();
 		$this->cfg = $this->getConfig()->getAll();
-		$this->getCommand("BlackAlerts")->setExecutor(new Commands\Commands($this));
+		$this->getCommand("blackalerts")->setExecutor(new Commands\Commands($this));
 		$this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
 		$this->getServer()->getScheduler()->scheduleRepeatingTask(new MotdTask($this), 20);
 	}
 
-	//API Functions
+	const API_VERSION = "1.1";
 
-	/** @var string API_VERSION CustomAlerts API version */
-	const API_VERSION = "1.2";
-
-	/**
-	 * Get CustomAlerts version
-	 *
-	 * @return string CustomAlerts version
-	 */
 	public function getVersion() : string{
 		return BlackAlerts::VERSION;
 	}
 
-	/**
-	 * Get CustomAlerts API version
-	 *
-	 * @return string CustomAlerts API version
-	 */
 	public function getAPIVersion(){
 		return BlackAlerts::API_VERSION;
 	}
 
-	/**
-	 * @deprecated
-	 * Register Plugin as CustomAlerts Extension
-	 *
-	 * @param PluginBase $extension The Plugin to register as extension
-	 * @param int        $priority (optional)
-	 */
 	public function registerExtension(PluginBase $extension, $priority = null){
-		Server::getInstance()->getLogger()->warning("Cette fonction est obsolète depuis l'API BlackAlerts v1.0.0");
+		Server::getInstance()->getLogger()->warning("Cette fonction est obsolète depuis blackalerts API v1.1");
 	}
 
-	/**
-	 * @deprecated
-	 * Get all CustomAlerts loaded extensions
-	 *
-	 * @param int $priority (optional)
-	 *
-	 * @return array All CustomAlerts loaded extensions if no priority specified, otherwise returns all extesions with the specified priority
-	 */
 	public function getAllExtensions($priority = null){
-		Server::getInstance()->getLogger()->warning("Cette fonction est obsolète depuis l'API BlackAlerts v1.0.0");
+		Server::getInstance()->getLogger()->warning("Cette fonction est obsolète depuis blackalerts API v1.1");
 	}
 
-	/**
-	 * Check if motd is custom
-	 *
-	 * @return boolean
-	 */
 	public function isMotdCustom(){
 		$cfg = $this->getConfig()->getAll();
 		return $cfg["Motd"]["custom"];
 	}
 
-	/**
-	 * Get default motd message
-	 *
-	 * @return string The default motd message
-	 */
 	public function getDefaultMotdMessage(){
 		$cfg = $this->getConfig()->getAll();
 		$message = $cfg["Motd"]["message"];
@@ -205,40 +116,20 @@ class BlackAlerts extends PluginBase{
 		return $this->translateColors("&", $message);
 	}
 
-	/**
-	 * Get current motd message
-	 *
-	 * @return string The current motd message
-	 */
 	public function getMotdMessage(){
 		return $this->message_motd;
 	}
 
-	/**
-	 * Set current motd message
-	 *
-	 * @param string $message The message
-	 */
 	public function setMotdMessage($message){
 		$this->message_motd = $message;
 		$this->getServer()->getNetwork()->setName($this->message_motd);
 	}
 
-	/**
-	 * Check if outdated client message is custom
-	 *
-	 * @return boolean
-	 */
 	public function isOutdatedClientMessageCustom(){
 		$cfg = $this->getConfig()->getAll();
 		return $cfg["OutdatedClient"]["custom"];
 	}
 
-	/**
-	 * Get default outdated client message
-	 *
-	 * @return string The default outdated client message
-	 */
 	public function getDefaultOutdatedClientMessage(Player $player){
 		$cfg = $this->getConfig()->getAll();
 		$message = $cfg["OutdatedClient"]["message"];
@@ -249,39 +140,19 @@ class BlackAlerts extends PluginBase{
 		return $this->translateColors("&", $message);
 	}
 
-	/**
-	 * Get current outdated client message
-	 *
-	 * @return string The current outdated client message
-	 */
 	public function getOutdatedClientMessage(){
 		return $this->message_outdated_client;
 	}
-
-	/**
-	 * Set current outdated client message
-	 *
-	 * @param string $message The message
-	 */
+	
 	public function setOutdatedClientMessage($message){
 		$this->message_outdated_client = $message;
 	}
 
-	/**
-	 * Check if outdated server message is custom
-	 *
-	 * @return boolean
-	 */
 	public function isOutdatedServerMessageCustom(){
 		$cfg = $this->getConfig()->getAll();
 		return $cfg["OutdatedServer"]["custom"];
 	}
 
-	/**
-	 * Get default outdated server message
-	 *
-	 * @return string The default outdated server message
-	 */
 	public function getDefaultOutdatedServerMessage(Player $player){
 		$cfg = $this->getConfig()->getAll();
 		$message = $cfg["OutdatedServer"]["message"];
@@ -292,39 +163,19 @@ class BlackAlerts extends PluginBase{
 		return $this->translateColors("&", $message);
 	}
 
-	/**
-	 * Get current outdated server message
-	 *
-	 * @return string The current outdated server message
-	 */
 	public function getOutdatedServerMessage(){
 		return $this->message_outdated_server;
 	}
 
-	/**
-	 * Set current outdated server message
-	 *
-	 * @param string $message The message
-	 */
 	public function setOutdatedServerMessage($message){
 		$this->message_outdated_server = $message;
 	}
 
-	/**
-	 * Check if whitelist message is custom
-	 *
-	 * @return boolean
-	 */
 	public function isWhitelistMessageCustom(){
 		$cfg = $this->getConfig()->getAll();
 		return $cfg["WhitelistedServer"]["custom"];
 	}
 
-	/**
-	 * Get default whitelist message
-	 *
-	 * @return string The default whitelist message
-	 */
 	public function getDefaultWhitelistMessage(Player $player){
 		$cfg = $this->getConfig()->getAll();
 		$message = $cfg["WhitelistedServer"]["message"];
@@ -335,39 +186,19 @@ class BlackAlerts extends PluginBase{
 		return $this->translateColors("&", $message);
 	}
 
-	/**
-	 * Get current whitelist message
-	 *
-	 * @return string The current whitelist message
-	 */
 	public function getWhitelistMessage(){
 		return $this->message_whitelist;
 	}
 
-	/**
-	 * Set current whitelist message
-	 *
-	 * @param string $message The message
-	 */
 	public function setWhitelistMessage($message){
 		$this->message_whitelist = $message;
 	}
 
-	/**
-	 * Check if full server message is custom
-	 *
-	 * @return boolean
-	 */
 	public function isFullServerMessageCustom(){
 		$cfg = $this->getConfig()->getAll();
 		return $cfg["FullServer"]["custom"];
 	}
 
-	/**
-	 * Get default full server message
-	 *
-	 * @return string The default full server message
-	 */
 	public function getDefaultFullServerMessage(Player $player){
 		$cfg = $this->getConfig()->getAll();
 		$message = $cfg["FullServer"]["message"];
@@ -378,42 +209,20 @@ class BlackAlerts extends PluginBase{
 		return $this->translateColors("&", $message);
 	}
 
-	/**
-	 * Get current full server message
-	 *
-	 * @return string The current full server message
-	 */
 	public function getFullServerMessage(){
 		return $this->message_fullserver;
 	}
 
-	/**
-	 * Set current full server message
-	 *
-	 * @param string $message The message
-	 */
 	public function setFullServerMessage($message){
 		$this->message_fullserver = $message;
 	}
 
 
-	/**
-	 * Get if default first join message is enabled
-	 *
-	 * @return boolean
-	 */
 	public function isDefaultFirstJoinMessageEnabled(){
 		$cfg = $this->getConfig()->getAll();
 		return $cfg["FirstJoin"]["enable"];
 	}
 
-	/**
-	 * Get default first join message
-	 *
-	 * @param Player $player
-	 *
-	 * @return string The default first join message
-	 */
 	public function getDefaultFirstJoinMessage(Player $player){
 		$cfg = $this->getConfig()->getAll();
 		$message = $cfg["FirstJoin"]["message"];
@@ -423,23 +232,12 @@ class BlackAlerts extends PluginBase{
 		$message = str_replace("{TIME}", date($cfg["datetime-format"]), $message);
 		return $this->translateColors("&", $message);
 	}
-
-	/**
-	 * Register the first join of a player (don't use this function)
-	 * @param Player $player
-	 */
 	public function registerFirstJoin(Player $player){
 		$cfg = new Config($this->getDataFolder() . "data/" . strtolower($player->getName() . ".dat"));
 		$cfg->save();
 	}
 
-	/**
-	 * Check if a player has joined for the first time
-	 *
-	 * @param Player $player
-	 *
-	 * @return boolean
-	 */
+
 	public function hasJoinedFirstTime(Player $player){
 		if(file_exists($this->getDataFolder() . "data/" . strtolower($player->getName() . ".dat"))){
 			return false;
@@ -448,33 +246,16 @@ class BlackAlerts extends PluginBase{
 		}
 	}
 
-	/**
-	 * Check if default join message is custom
-	 *
-	 * @return boolean
-	 */
 	public function isDefaultJoinMessageCustom(){
 		$cfg = $this->getConfig()->getAll();
 		return $cfg["Join"]["custom"];
 	}
 
-	/**
-	 * Check if default join message is hidden
-	 *
-	 * @return boolean
-	 */
 	public function isDefaultJoinMessageHidden(){
 		$cfg = $this->getConfig()->getAll();
 		return $cfg["Join"]["hide"];
 	}
 
-	/**
-	 * Get default join message
-	 *
-	 * @param Player $player
-	 *
-	 * @return string The default join message
-	 */
 	public function getDefaultJoinMessage(Player $player){
 		$cfg = $this->getConfig()->getAll();
 		$message = $cfg["Join"]["message"];
@@ -485,51 +266,24 @@ class BlackAlerts extends PluginBase{
 		return $this->translateColors("&", $message);
 	}
 
-	/**
-	 * Get current join message
-	 *
-	 * @return string The current join message
-	 */
 	public function getJoinMessage(){
 		return $this->message_join;
 	}
 
-	/**
-	 * Set current join message
-	 *
-	 * @param string $message The message
-	 */
 	public function setJoinMessage($message){
 		$this->message_join = $message;
 	}
 
-	/**
-	 * Check if default quit message is custom
-	 *
-	 * @return boolean
-	 */
 	public function isQuitCustom(){
 		$cfg = $this->getConfig()->getAll();
 		return $cfg["Quit"]["custom"];
 	}
 
-	/**
-	 * Check if default quit message is hidden
-	 *
-	 * @return boolean
-	 */
 	public function isQuitHidden(){
 		$cfg = $this->getConfig()->getAll();
 		return $cfg["Quit"]["hide"];
 	}
 
-	/**
-	 * Get default quit message
-	 *
-	 * @param Player $player
-	 *
-	 * @return string The default quit message
-	 */
 	public function getDefaultQuitMessage(Player $player){
 		$cfg = $this->getConfig()->getAll();
 		$message = $cfg["Quit"]["message"];
@@ -540,43 +294,19 @@ class BlackAlerts extends PluginBase{
 		return $this->translateColors("&", $message);
 	}
 
-	/**
-	 * Get current quit message
-	 *
-	 * @return string The current quit message
-	 */
 	public function getQuitMessage(){
 		return $this->message_quit;
 	}
 
-	/**
-	 * Set current quit message
-	 *
-	 * @param string $message The message
-	 */
 	public function setQuitMessage($message){
 		$this->message_quit = $message;
 	}
 
-	/**
-	 * Get if default world change message is enabled
-	 *
-	 * @return boolean
-	 */
 	public function isDefaultWorldChangeMessageEnabled(){
 		$cfg = $this->getConfig()->getAll();
 		return $cfg["WorldChange"]["enable"];
 	}
 
-	/**
-	 * Get default quit message
-	 *
-	 * @param Player $player
-	 * @param Level  $origin
-	 * @param Level  $target
-	 *
-	 * @return string The default world change message
-	 */
 	public function getDefaultWorldChangeMessage(Player $player, Level $origin, Level $target){
 		$cfg = $this->getConfig()->getAll();
 		$message = $cfg["WorldChange"]["message"];
@@ -589,32 +319,15 @@ class BlackAlerts extends PluginBase{
 		return $this->translateColors("&", $message);
 	}
 
-	/**
-	 * Get current world change message
-	 *
-	 * @return string The current world change message
-	 */
 	public function getWorldChangeMessage(){
 		return $this->message_world_change;
 	}
 
-	/**
-	 * Set current world change message
-	 *
-	 * @param string $message The message
-	 */
 	public function setWorldChangeMessage($message){
 		$this->message_world_change = $message;
 	}
 
-	/**
-	 * Check if death messages are custom
-	 *
-	 * @param EntityDeathEvent $cause Check message by cause
-	 *
-	 * @return boolean
-	 */
-	public function isDeathCustom($cause = null){
+	public function isDeathCustom(EntityDamageEvent $cause = null){
 		$cfg = $this->getConfig()->getAll();
 		if($cause instanceof EntityDamageEvent){
 			if($cause->getCause() == EntityDamageEvent::CAUSE_CONTACT){
@@ -651,14 +364,7 @@ class BlackAlerts extends PluginBase{
 		}
 	}
 
-	/**
-	 * Check if death messages are hidden
-	 *
-	 * @param EntityDamageEvent $cause Check message by cause
-	 *
-	 * @return boolean
-	 */
-	public function isDeathHidden($cause = null){
+	public function isDeathHidden(EntityDamageEvent $cause = null){
 		$cfg = $this->getConfig()->getAll();
 		if($cause instanceof EntityDamageEvent){
 			if($cause->getCause() == EntityDamageEvent::CAUSE_CONTACT){
@@ -695,14 +401,6 @@ class BlackAlerts extends PluginBase{
 		}
 	}
 
-	/**
-	 * Get default death message related to the specified cause
-	 *
-	 * @param Player            $player
-	 * @param EntityDamageEvent $cause Get message related to the specified cause
-	 *
-	 * @return string The default death message related to the specified cause
-	 */
 	public function getDefaultDeathMessage(Player $player, $cause = null){
 		$cfg = $this->getConfig()->getAll();
 		if($cause instanceof EntityDamageEvent){
@@ -711,7 +409,7 @@ class BlackAlerts extends PluginBase{
 				if($cause instanceof EntityDamageByBlockEvent){
 					$message = str_replace("{BLOCK}", $cause->getDamager()->getName(), $message);
 				}else{
-					$message = str_replace("{BLOCK}", "Unknown", $message);
+					$message = str_replace("{BLOCK}", "Inconnu", $message);
 				}
 			}elseif($cause->getCause() == EntityDamageEvent::CAUSE_ENTITY_ATTACK){
 				$message = $cfg["Death"]["kill-message"]["message"];
@@ -719,7 +417,7 @@ class BlackAlerts extends PluginBase{
 				if($killer instanceof Living){
 					$message = str_replace("{KILLER}", $killer->getName(), $message);
 				}else{
-					$message = str_replace("{KILLER}", "Unknown", $message);
+					$message = str_replace("{KILLER}", "Inconnu", $message);
 				}
 			}elseif($cause->getCause() == EntityDamageEvent::CAUSE_PROJECTILE){
 				$message = $cfg["Death"]["death-projectile-message"]["message"];
@@ -727,7 +425,7 @@ class BlackAlerts extends PluginBase{
 				if($killer instanceof Living){
 					$message = str_replace("{KILLER}", $killer->getName(), $message);
 				}else{
-					$message = str_replace("{KILLER}", "Unknown", $message);
+					$message = str_replace("{KILLER}", "Inconnu", $message);
 				}
 			}elseif($cause->getCause() == EntityDamageEvent::CAUSE_SUFFOCATION){
 				$message = $cfg["Death"]["death-suffocation-message"]["message"];
@@ -762,20 +460,10 @@ class BlackAlerts extends PluginBase{
 		return $this->translateColors("&", $message);
 	}
 
-	/**
-	 * Get current death message
-	 *
-	 * @return string The current death message
-	 */
 	public function getDeathMessage(){
 		return $this->message_death;
 	}
 
-	/**
-	 * Set current death message
-	 *
-	 * @param string $message The message
-	 */
 	public function setDeathMessage($message){
 		$this->message_death = $message;
 	}

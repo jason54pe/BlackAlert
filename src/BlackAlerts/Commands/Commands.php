@@ -1,14 +1,4 @@
 <?php
-
-/*
- * BlackAlerts (v1.6) by EvolSoft
- * Developer: EvolSoft (Flavius12)
- * Website: http://www.evolsoft.tk
- * Date: 05/06/2015 10:52 AM (UTC)
- * Copyright & License: (C) 2014-2015 EvolSoft
- * Licensed under MIT (https://github.com/EvolSoft/BlackAlerts/blob/master/LICENSE)
- */
-
 namespace BlackAlerts\Commands;
 
 use pocketmine\command\Command;
@@ -28,31 +18,30 @@ class Commands extends PluginBase implements CommandExecutor{
 	public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args) : bool{
 		$fcmd = strtolower($cmd->getName());
 		switch($fcmd){
-			case "BlackAlerts":
+			case "blackalerts":
 				if(isset($args[0])){
 					$args[0] = strtolower($args[0]);
 					if($args[0] == "help"){
-						if($sender->hasPermission("BlackAlerts.help")){
+						if($sender->hasPermission("blackalerts.help")){
 							$sender->sendMessage($this->plugin->translateColors("&", "&b-- &aCommandes disponibles &b--"));
-							$sender->sendMessage($this->plugin->translateColors("&", "&d/calerts help &b-&a Afficher l'aide sur ce plugin"));
-							$sender->sendMessage($this->plugin->translateColors("&", "&d/calerts info &b-&a Afficher les informations sur ce plugin"));
-							$sender->sendMessage($this->plugin->translateColors("&", "&d/calerts reload &b-&a Recharger la config"));
+							$sender->sendMessage($this->plugin->translateColors("&", "&d/balerts help &b-&a Afficher l'aide sur ce plugin"));
+							$sender->sendMessage($this->plugin->translateColors("&", "&d/balerts info &b-&a Afficher les informations sur ce plugin"));
+							$sender->sendMessage($this->plugin->translateColors("&", "&d/balerts reload &b-&a Recharger la config"));
 							break;
 						}else{
 							$sender->sendMessage($this->plugin->translateColors("&", "&cVous n'êtes pas autorisé à utiliser cette commande"));
 							break;
 						}
 					}elseif($args[0] == "info"){
-						if($sender->hasPermission("BlackAlerts.info")){
-							$sender->sendMessage($this->plugin->translateColors("&", BlackAlerts::PREFIX . "&aBlackAlerts &dv" . BlackAlerts::VERSION . " &adevelope par&d " . BlackAlerts::PRODUCER));
-							$sender->sendMessage($this->plugin->translateColors("&", BlackAlerts::PREFIX . "&site &d" . BlackAlerts::MAIN_WEBSITE));
+						if($sender->hasPermission("blackalerts.info")){
+							$sender->sendMessage($this->plugin->translateColors("&", BlackAlerts::PREFIX . "&aBlackAlerts &dv" . BlackAlerts::VERSION . " &adéveloppé par&d " . BlackAlerts::PRODUCER));
 							break;
 						}else{
 							$sender->sendMessage($this->plugin->translateColors("&", "&cVous n'êtes pas autorisé à utiliser cette commande"));
 							break;
 						}
 					}elseif($args[0] == "reload"){
-						if($sender->hasPermission("BlackAlerts.reload")){
+						if($sender->hasPermission("blackalerts.reload")){
 							$this->plugin->reloadConfig();
 							//Reload Motd
 							if(!BlackAlerts::getAPI()->isMotdCustom()){
@@ -65,8 +54,8 @@ class Commands extends PluginBase implements CommandExecutor{
 							break;
 						}
 					}else{
-						if($sender->hasPermission("BlackAlerts")){
-							$sender->sendMessage($this->plugin->translateColors("&", BlackAlerts::PREFIX . "&cSubcommand &a" . $args[0] . " &cpas trouvé. Utilisation &a/calerts help &cafficher les commandes disponibles"));
+						if($sender->hasPermission("blackalerts")){
+							$sender->sendMessage($this->plugin->translateColors("&", BlackAlerts::PREFIX . "&cSous-commande &a" . $args[0] . " &cpas trouvé. Utilisation &a/balerts help &cafficher les commandes disponibles"));
 							break;
 						}else{
 							$sender->sendMessage($this->plugin->translateColors("&", "&cVous n'êtes pas autorisé à utiliser cette commande"));
@@ -74,11 +63,11 @@ class Commands extends PluginBase implements CommandExecutor{
 						}
 					}
 				}else{
-					if($sender->hasPermission("BlackAlerts.help")){
-						$sender->sendMessage($this->plugin->translateColors("&", "&b-- &aCommandes disponibles &b--"));
-						$sender->sendMessage($this->plugin->translateColors("&", "&d/calerts help &b-&a Afficher l'aide sur ce plugin"));
-						$sender->sendMessage($this->plugin->translateColors("&", "&d/calerts info &b-&a Afficher les informations sur ce plugin"));
-						$sender->sendMessage($this->plugin->translateColors("&", "&d/calerts reload &b-&a Recharger la config"));
+					if($sender->hasPermission("blackalerts.help")){
+							$sender->sendMessage($this->plugin->translateColors("&", "&b-- &aCommandes disponibles &b--"));
+							$sender->sendMessage($this->plugin->translateColors("&", "&d/balerts help &b-&a Afficher l'aide sur ce plugin"));
+							$sender->sendMessage($this->plugin->translateColors("&", "&d/balerts info &b-&a Afficher les informations sur ce plugin"));
+							$sender->sendMessage($this->plugin->translateColors("&", "&d/balerts reload &b-&a Recharger la config"));
 						break;
 					}else{
 						$sender->sendMessage($this->plugin->translateColors("&", "&cVous n'êtes pas autorisé à utiliser cette commande"));
@@ -86,5 +75,6 @@ class Commands extends PluginBase implements CommandExecutor{
 					}
 				}
 		}
+		return true;
 	}
 }

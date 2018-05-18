@@ -1,33 +1,27 @@
----
 name: BlackAlerts
 main: BlackAlerts\BlackAlerts
-version: 1.0.0
-api:
-- 3.0.0-ALPHA7
-- 3.0.0-ALPHA8
-- 3.0.0-ALPHA9
-- 3.0.0-ALPHA10
+version: 2.0
+api: [3.0.0-ALPHA12]
 load: STARTUP
 author: BlackTeam
-description: Personnaliser les alertes (joindre / laisser des messages, etc...)
+description: Personnaliser les alertes (joindre / laisser des messages, etc ...)
+
 commands:
-  BlackAlerts:
-    aliases:
-    - calerts
+  blackalerts:
+    aliases: [balerts]
     description: Commandes BlackAlerts.
-    permission: BlackAlerts
+    permission: blackalerts
 permissions:
-  BlackAlerts:
+  blackalerts:
     default: op
-    description: Permission BlackAlerts.
+    description: Autorisations BlackAlerts.
     children:
-      BlackAlerts.help:
+      blackalerts.help:
         default: op
-        description: BlackAlerts commande autorisation de l'aide.
-      BlackAlerts.info:
+        description: Commande d'assistance BlackAlerts.
+      blackalerts.info:
         default: op
-        description: BlackAlerts commande info permission.
-      BlackAlerts.reload:
+        description: Commande BlackAlerts Autorisation Info.
+      blackalerts.reload:
         default: op
-        description: BlackAlerts commande Reload permission.
-...
+        description: Commande BlackAlerts Autoriser le rechargement.
