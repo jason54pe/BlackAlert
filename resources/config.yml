@@ -3,87 +3,87 @@ datetime-format: "H:i:s"
 Motd:
   update-timeout: 1
   custom: true
-  message: "&4Black&aPast &eFaction &6V2.1"
+  message: "&4Black&cPast &eV1.0 "
 OutdatedClient:
   custom: true
   message: "&cVotre client MCPE est obsolète!"
 OutdatedServer:
   custom: true
-  message: "&cOops! Server obsolète!"
+  message: "&cOops! Serveur obsolète!"
 WhitelistedServer:
   custom: true
-  message: "&c&oCe serveur est en liste blanche!"
+  message: "&c&oCe serveur est sur liste blanche!"
 FullServer:
   custom: true
-  message: "&e{PLAYER}&b, Le serveur est plein &c[{TOTALPLAYERS}/{MAXPLAYERS}]&b!\n&l&dEssayez de vous inscrire plus tard :)"
+  message: "&e{PLAYER}&b, Le serveur est plein &c[{TOTALPLAYERS}/{MAXPLAYERS}]&b!\n&l&dVeuillez rejoindre plus tard :)"
 FirstJoin:
   enable: true
-  message: "&a{PLAYER}&d a rejoint le jeu pour la première fois."
+  message: "&a{PLAYER}&d a rejoint notre serveur pour la premiere , souhaitons lui la bienvenue !."
 Join:
-  hide: true
+  hide: false
   custom: true
-  message: "&a{PLAYER}&e a rejoint le jeu."
+  message: "&8[&a+&8] &7{PLAYER}"
 Quit:
   hide: true
-  custom: true
-  message: "&c{PLAYER}&e a quitté la partie"
+  custom: false
+  message: "&8[&c-&8] &7{PLAYER}"
 WorldChange:
-  enable: true
-  message: "&a{PLAYER}&e bouger de &c{ORIGIN}&e à &a{TARGET}"
+  enable: false
+  message: "&2[{TIME}] &a{PLAYER}&e moved from &c{ORIGIN}&e to &a{TARGET}"
 Death:
-  hide: true
+  hide: false
   custom: true
-  message: "&c{PLAYER} décédés"
+  message: "&c{PLAYER} Est mort ! Paix a son ame."
   death-contact-message:
-    hide: true
+    hide: false
     custom: true
-    message: "&cOops! {PLAYER} A été tué par {BLOCK}"
+    message: "&cOops! {PLAYER} a été tué par {BLOCK}"
   kill-message:
-    hide: true
+    hide: false
     custom: true
-    message: "&9{PLAYER} &eA été tué par &c{KILLER}"
+    message: "&9{PLAYER} &ea été pulvérisé par &c{KILLER}"
   death-projectile-message:
-    hide: true
+    hide: false
     custom: true
-    message: "&c{PLAYER} A été tué par {KILLER} par un ovni"
+    message: "&c{PLAYER} &ea été sniper par {KILLER}."
   death-suffocation-message:
-    hide: true
+    hide: false
     custom: true
-    message: "&c{PLAYER} étouffé"
+    message: "&c{PLAYER} c'est étoufé !"
   death-fall-message:
-    hide: true
+    hide: false
     custom: true
-    message: "&c{PLAYER} tombé d'un haut lieu"
+    message: "&c{PLAYER} a cru qu'il pouvait voler"
   death-fire-message:
-    hide: true
+    hide: false
     custom: true
-    message: "&c{PLAYER} est monté en flammes"
+    message: "&c{PLAYER} a été carboniser !"
   death-on-fire-message:
-    hide: true
+    hide: false
     custom: true
-    message: "&c{PLAYER} brûlé"
+    message: "&c{PLAYER} a brûlé"
   death-lava-message:
-    hide: true
+    hide: false
     custom: true
-    message: "&c{PLAYER} essayé de nager dans la lave"
+    message: "&c{PLAYER} a essayé de nager dans la lave"
   death-drowning-message:
-    hide: true
+    hide: false
     custom: true
-    message: "&c{PLAYER} noyé"
+    message: "&c{PLAYER} c'est noyé"
   death-explosion-message:
-    hide: true
+    hide: false
     custom: true
-    message: "&c{PLAYER} a explosé"
+    message: "&c{PLAYER} a éclaté"
   death-void-message:
-    hide: true
+    hide: false
     custom: true
-    message: "&c{PLAYER} est tombé dans le vide"
+    message: "&c{PLAYER} A cru qu'il savait voler !"
   death-suicide-message:
-    hide: true
+    hide: false
     custom: true
-    message: "&c{PLAYER} se suicider"
+    message: "&c{PLAYER} c'est suicidé"
   death-magic-message:
-    hide: true
+    hide: false
     custom: true
     message: "&c{PLAYER} a été tué par un sort"
 ...

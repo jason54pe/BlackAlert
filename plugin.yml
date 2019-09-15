@@ -1,27 +1,27 @@
 name: BlackAlerts
 main: BlackAlerts\BlackAlerts
-version: 2.0
-api: [3.0.0-ALPHA12]
+version: 1.0.0
+api: [3.2.0]
 load: STARTUP
 author: BlackTeam
-description: Personnaliser les alertes (joindre / laisser des messages, etc ...)
+description: Personnaliser ou masquer les alertes (messages joint / laissé, liste blanche, messages serveur / client obsolètes, etc ...) plugin
 
 commands:
-  blackalerts:
-    aliases: [balerts]
+  customalerts:
+    aliases: [calerts]
     description: Commandes BlackAlerts.
-    permission: blackalerts
+    permission: customalerts
 permissions:
-  blackalerts:
+  customalerts:
     default: op
-    description: Autorisations BlackAlerts.
+    description: Arbre d'autorisation BlackAlerts.
     children:
-      blackalerts.help:
+      customalerts.help:
         default: op
-        description: Commande d'assistance BlackAlerts.
-      blackalerts.info:
+        description: laisser le joueur lire les commandes BlackAlerts aider.
+      customalerts.info:
         default: op
-        description: Commande BlackAlerts Autorisation Info.
-      blackalerts.reload:
+        description: Laissez le joueur lire les informations sur BlackAlerts.
+      customalerts.reload:
         default: op
-        description: Commande BlackAlerts Autoriser le rechargement.
+        description: Laissez le lecteur recharger la configuration BlackAlerts.

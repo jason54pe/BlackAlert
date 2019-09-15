@@ -1,29 +1,29 @@
 <?php
+
 namespace BlackAlerts\Events;
 
 use pocketmine\event\entity\EntityDamageEvent;
-use pocketmine\event\plugin\PluginEvent;
 use pocketmine\Player;
 
-class CustomAlertsDeathEvent extends PluginEvent{
-
+class CustomAlertsDeathEvent extends CustomAlertsEvent {
+	
 	public static $handlerList = null;
+	
+	private $player;
+	
+	private $cause;
+	
+	public function __construct(Player $player, EntityDamageEvent $cause = null){
+		$this->player = $player;
+		$this->cause = $cause;
+	}
 
-    private $player;
+	public function getPlayer() : Player {
+		return $this->player;
+	}
 
-    private $cause;
-
-    public function __construct(Player $player, $cause = null){
-        $this->player = $player;
-        $this->cause = $cause;
-    }
-
-    public function getPlayer(){
-        return $this->player;
-    }
-
-    public function getCause(){
-        return $this->cause;
-    }
-
+	public function getCause() : ?EntityDamageEvent {
+		return $this->cause;
+	}
+	
 }

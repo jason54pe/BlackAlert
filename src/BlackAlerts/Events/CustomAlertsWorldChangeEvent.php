@@ -1,18 +1,18 @@
 <?php
+
 namespace BlackAlerts\Events;
 
-use pocketmine\event\plugin\PluginEvent;
 use pocketmine\level\Level;
 use pocketmine\Player;
 
-class CustomAlertsWorldChangeEvent extends PluginEvent{
-
+class CustomAlertsWorldChangeEvent extends CustomAlertsEvent {
+	
 	public static $handlerList = null;
-
+	
 	private $player;
-
+	
 	private $origin;
-
+	
 	private $target;
 
 	public function __construct(Player $player, Level $origin, Level $target){
@@ -21,16 +21,15 @@ class CustomAlertsWorldChangeEvent extends PluginEvent{
 		$this->target = $target;
 	}
 
-	public function getPlayer(){
+	public function getPlayer() : Player {
 		return $this->player;
 	}
 
-	public function getOrigin(){
+	public function getOrigin() : Level {
 		return $this->origin;
 	}
 
-	public function getTarget(){
+	public function getTarget() : Level {
 		return $this->target;
 	}
-
 }

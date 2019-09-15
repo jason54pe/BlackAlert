@@ -1,27 +1,20 @@
 <?php
+
 namespace BlackAlerts\Events;
 
-use pocketmine\event\plugin\PluginEvent;
 use pocketmine\Player;
 
-class CustomAlertsJoinEvent extends PluginEvent{
-
+class CustomAlertsJoinEvent extends CustomAlertsEvent {
+	
 	public static $handlerList = null;
-
+	
 	private $player;
 
-	private $pocketminemessage;
-
-	public function __construct(Player $player, $pocketminemessage){
+	public function __construct(Player $player){
 		$this->player = $player;
-		$this->pocketminemessage = $pocketminemessage;
 	}
 
-	public function getPlayer(){
+	public function getPlayer() : Player {
 		return $this->player;
-	}
-
-	public function getPocketMineJoinMessage(){
-		return $this->pocketminemessage;
 	}
 }

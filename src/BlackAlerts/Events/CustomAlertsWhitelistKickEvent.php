@@ -1,11 +1,11 @@
 <?php
+
 namespace BlackAlerts\Events;
 
-use pocketmine\event\plugin\PluginEvent;
 use pocketmine\Player;
 
-class CustomAlertsWhitelistKickEvent extends PluginEvent{
-
+class CustomAlertsWhitelistKickEvent extends CustomAlertsEvent {
+	
 	public static $handlerList = null;
 
 	private $player;
@@ -14,7 +14,7 @@ class CustomAlertsWhitelistKickEvent extends PluginEvent{
 		$this->player = $player;
 	}
 
-	public function getPlayer(){
+	public function getPlayer() : Player {
 		return $this->player;
 	}
 }
